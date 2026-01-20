@@ -21,50 +21,27 @@ import Layout from '../layouts/Layout.astro';
         <p class="subtitle">Bahn, Flug und Bus im direkten Preisvergleich</p>
         
         <div class="search-box">
-          <form id="search-form" class="search-row">
+          <div class="search-row">
             <div class="input-group">
               <label for="from">Von</label>
-              <div class="autocomplete-wrapper">
-                <input type="text" id="from" placeholder="Stadt oder Bahnhof" autocomplete="off" />
-                <input type="hidden" id="from-id" />
-                <div id="from-suggestions" class="suggestions"></div>
-              </div>
+              <input type="text" id="from" placeholder="Stadt oder Bahnhof" />
             </div>
             <div class="input-group">
               <label for="to">Nach</label>
-              <div class="autocomplete-wrapper">
-                <input type="text" id="to" placeholder="Stadt oder Bahnhof" autocomplete="off" />
-                <input type="hidden" id="to-id" />
-                <div id="to-suggestions" class="suggestions"></div>
-              </div>
+              <input type="text" id="to" placeholder="Stadt oder Bahnhof" />
             </div>
             <div class="input-group">
               <label for="date">Datum</label>
               <input type="date" id="date" />
             </div>
-            <button type="submit" class="search-btn" id="search-btn">
-              <span class="btn-text">Suchen</span>
-              <span class="btn-loading" style="display:none">...</span>
-            </button>
-          </form>
+            <button type="submit" class="search-btn">Suchen</button>
+          </div>
         </div>
 
         <div class="ai-hint">
           <span class="badge">Neu</span>
           Oder beschreibe deine Reise: 
           <a href="#chat" class="ai-link">"Hamburg nach München, möglichst günstig"</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="results" class="results-section" style="display:none">
-      <div class="container">
-        <div class="results-header">
-          <h2 id="results-title">Verbindungen</h2>
-          <button id="close-results" class="close-btn">Schliessen</button>
-        </div>
-        <div id="results-content">
-          <!-- Results will be injected here -->
         </div>
       </div>
     </section>
@@ -108,7 +85,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="container">
         <h2>Beliebte Strecken</h2>
         <div class="routes-grid">
-          <a href="#" class="route-card" data-from="Berlin Hbf" data-to="München Hbf">
+          <a href="/routen/berlin-muenchen" class="route-card">
             <div class="route-cities">
               <span>Berlin</span>
               <span class="arrow">→</span>
@@ -116,7 +93,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <div class="route-meta">ab 17,90 € · 4h ICE</div>
           </a>
-          <a href="#" class="route-card" data-from="Hamburg Hbf" data-to="Berlin Hbf">
+          <a href="/routen/hamburg-berlin" class="route-card">
             <div class="route-cities">
               <span>Hamburg</span>
               <span class="arrow">→</span>
@@ -124,7 +101,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <div class="route-meta">ab 12,90 € · 1h45 ICE</div>
           </a>
-          <a href="#" class="route-card" data-from="Frankfurt Hbf" data-to="Köln Hbf">
+          <a href="/routen/frankfurt-koeln" class="route-card">
             <div class="route-cities">
               <span>Frankfurt</span>
               <span class="arrow">→</span>
@@ -132,7 +109,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <div class="route-meta">ab 14,90 € · 1h ICE</div>
           </a>
-          <a href="#" class="route-card" data-from="München Hbf" data-to="Hamburg Hbf">
+          <a href="/routen/muenchen-hamburg" class="route-card">
             <div class="route-cities">
               <span>München</span>
               <span class="arrow">→</span>
@@ -211,9 +188,6 @@ import Layout from '../layouts/Layout.astro';
     --bg: #ffffff;
     --bg-subtle: #f9fafb;
     --border: #e5e7eb;
-    --success: #059669;
-    --warning: #d97706;
-    --error: #dc2626;
   }
 
   header {
@@ -308,10 +282,6 @@ import Layout from '../layouts/Layout.astro';
     margin-bottom: 0.5rem;
   }
 
-  .autocomplete-wrapper {
-    position: relative;
-  }
-
   .input-group input {
     width: 100%;
     padding: 0.875rem 1rem;
@@ -327,51 +297,6 @@ import Layout from '../layouts/Layout.astro';
     box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
   }
 
-  .suggestions {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-top: 4px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    z-index: 100;
-    display: none;
-    max-height: 240px;
-    overflow-y: auto;
-  }
-
-  .suggestions.active {
-    display: block;
-  }
-
-  .suggestion-item {
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .suggestion-item:last-child {
-    border-bottom: none;
-  }
-
-  .suggestion-item:hover {
-    background: var(--bg-subtle);
-  }
-
-  .suggestion-item .name {
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .suggestion-item .products {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-
   .search-btn {
     padding: 0.875rem 2rem;
     background: var(--primary);
@@ -382,16 +307,10 @@ import Layout from '../layouts/Layout.astro';
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
-    min-width: 120px;
   }
 
   .search-btn:hover {
     background: var(--primary-dark);
-  }
-
-  .search-btn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
   }
 
   .ai-hint {
@@ -413,173 +332,6 @@ import Layout from '../layouts/Layout.astro';
     color: white;
     text-decoration: underline;
     text-underline-offset: 2px;
-  }
-
-  /* Results Section */
-  .results-section {
-    padding: 3rem 0;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .results-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .results-header h2 {
-    font-size: 1.5rem;
-    color: var(--text);
-  }
-
-  .close-btn {
-    background: none;
-    border: 1px solid var(--border);
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    color: var(--text-muted);
-  }
-
-  .close-btn:hover {
-    background: var(--bg-subtle);
-  }
-
-  .journey-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.25rem;
-    margin-bottom: 1rem;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr auto;
-    gap: 1.5rem;
-    align-items: center;
-  }
-
-  .journey-card:hover {
-    border-color: var(--primary);
-    box-shadow: 0 2px 8px rgba(26, 86, 219, 0.1);
-  }
-
-  .journey-time {
-    text-align: center;
-  }
-
-  .journey-time .time {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .journey-time .delay {
-    font-size: 0.75rem;
-    color: var(--warning);
-    font-weight: 500;
-  }
-
-  .journey-time .station {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    margin-top: 0.25rem;
-  }
-
-  .journey-time .platform {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
-
-  .journey-route {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 1rem;
-  }
-
-  .journey-route .duration {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    margin-bottom: 0.5rem;
-  }
-
-  .journey-route .line {
-    width: 100px;
-    height: 2px;
-    background: var(--border);
-    position: relative;
-  }
-
-  .journey-route .line::before,
-  .journey-route .line::after {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--primary);
-    top: -3px;
-  }
-
-  .journey-route .line::before { left: 0; }
-  .journey-route .line::after { right: 0; }
-
-  .journey-route .transfers {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 0.5rem;
-  }
-
-  .journey-products {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .product-badge {
-    padding: 0.25rem 0.5rem;
-    background: var(--bg-subtle);
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .product-badge.ice { background: #fee2e2; color: #991b1b; }
-  .product-badge.ic { background: #fef3c7; color: #92400e; }
-  .product-badge.re { background: #dbeafe; color: #1e40af; }
-  .product-badge.rb { background: #d1fae5; color: #065f46; }
-  .product-badge.s { background: #e0e7ff; color: #3730a3; }
-
-  .journey-price {
-    text-align: right;
-  }
-
-  .journey-price .price {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--primary);
-  }
-
-  .journey-price .price-label {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
-
-  .no-results {
-    text-align: center;
-    padding: 3rem;
-    color: var(--text-muted);
-  }
-
-  .error-message {
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    padding: 1rem;
-    border-radius: 8px;
-    color: var(--error);
-    text-align: center;
   }
 
   .container {
@@ -650,7 +402,6 @@ import Layout from '../layouts/Layout.astro';
     padding: 1.25rem;
     text-decoration: none;
     transition: border-color 0.2s, box-shadow 0.2s;
-    cursor: pointer;
   }
 
   .route-card:hover {
@@ -723,11 +474,6 @@ import Layout from '../layouts/Layout.astro';
     border-radius: 8px;
     color: var(--text);
     line-height: 1.6;
-  }
-
-  .message.user p {
-    background: var(--primary);
-    color: white;
   }
 
   #chat-form {
@@ -808,11 +554,6 @@ import Layout from '../layouts/Layout.astro';
       grid-template-columns: 1fr;
     }
     
-    .journey-card {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-    
     h1 {
       font-size: 2rem;
     }
@@ -820,260 +561,19 @@ import Layout from '../layouts/Layout.astro';
 </style>
 
 <script>
-  // ============ Station Autocomplete ============
-  const fromInput = document.getElementById('from') as HTMLInputElement;
-  const toInput = document.getElementById('to') as HTMLInputElement;
-  const fromId = document.getElementById('from-id') as HTMLInputElement;
-  const toId = document.getElementById('to-id') as HTMLInputElement;
-  const fromSuggestions = document.getElementById('from-suggestions')!;
-  const toSuggestions = document.getElementById('to-suggestions')!;
+  const form = document.getElementById('chat-form');
+  const input = document.getElementById('chat-input') as HTMLInputElement;
+  const messages = document.getElementById('chat-messages');
   
-  let debounceTimer: ReturnType<typeof setTimeout>;
-  
-  function debounce(fn: Function, delay: number) {
-    return (...args: any[]) => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => fn(...args), delay);
-    };
-  }
-  
-  async function searchStations(query: string): Promise<any[]> {
-    if (query.length < 2) return [];
-    try {
-      const res = await fetch(`/api/transport/search?q=${encodeURIComponent(query)}&limit=6`);
-      if (!res.ok) return [];
-      return await res.json();
-    } catch {
-      return [];
-    }
-  }
-  
-  function getProductTags(products: any): string {
-    if (!products) return '';
-    const tags = [];
-    if (products.nationalExpress) tags.push('ICE');
-    if (products.national) tags.push('IC');
-    if (products.regionalExp) tags.push('RE');
-    if (products.regional) tags.push('RB');
-    if (products.suburban) tags.push('S');
-    if (products.bus) tags.push('Bus');
-    return tags.join(', ');
-  }
-  
-  function renderSuggestions(suggestions: any[], container: HTMLElement, input: HTMLInputElement, hiddenInput: HTMLInputElement) {
-    if (suggestions.length === 0) {
-      container.classList.remove('active');
-      return;
-    }
-    
-    container.innerHTML = suggestions.map(s => `
-      <div class="suggestion-item" data-id="${s.id}" data-name="${s.name}">
-        <div class="name">${s.name}</div>
-        <div class="products">${getProductTags(s.products)}</div>
-      </div>
-    `).join('');
-    
-    container.classList.add('active');
-    
-    container.querySelectorAll('.suggestion-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const id = (item as HTMLElement).dataset.id!;
-        const name = (item as HTMLElement).dataset.name!;
-        input.value = name;
-        hiddenInput.value = id;
-        container.classList.remove('active');
-      });
-    });
-  }
-  
-  const handleFromInput = debounce(async (e: Event) => {
-    const query = (e.target as HTMLInputElement).value;
-    fromId.value = ''; // Reset ID when typing
-    const results = await searchStations(query);
-    renderSuggestions(results, fromSuggestions, fromInput, fromId);
-  }, 300);
-  
-  const handleToInput = debounce(async (e: Event) => {
-    const query = (e.target as HTMLInputElement).value;
-    toId.value = '';
-    const results = await searchStations(query);
-    renderSuggestions(results, toSuggestions, toInput, toId);
-  }, 300);
-  
-  fromInput.addEventListener('input', handleFromInput);
-  toInput.addEventListener('input', handleToInput);
-  
-  // Close suggestions on click outside
-  document.addEventListener('click', (e) => {
-    if (!fromInput.contains(e.target as Node) && !fromSuggestions.contains(e.target as Node)) {
-      fromSuggestions.classList.remove('active');
-    }
-    if (!toInput.contains(e.target as Node) && !toSuggestions.contains(e.target as Node)) {
-      toSuggestions.classList.remove('active');
-    }
-  });
-  
-  // ============ Journey Search ============
-  const searchForm = document.getElementById('search-form')!;
-  const searchBtn = document.getElementById('search-btn')!;
-  const btnText = searchBtn.querySelector('.btn-text')!;
-  const btnLoading = searchBtn.querySelector('.btn-loading')!;
-  const resultsSection = document.getElementById('results')!;
-  const resultsTitle = document.getElementById('results-title')!;
-  const resultsContent = document.getElementById('results-content')!;
-  const closeResults = document.getElementById('close-results')!;
-  const dateInput = document.getElementById('date') as HTMLInputElement;
-  
-  // Set default date to today
-  const today = new Date().toISOString().split('T')[0];
-  dateInput.value = today;
-  
-  function formatTime(isoString: string): string {
-    return new Date(isoString).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-  }
-  
-  function getProductClass(product: string): string {
-    const map: Record<string, string> = {
-      nationalExpress: 'ice',
-      national: 'ic',
-      regionalExp: 're',
-      regional: 'rb',
-      suburban: 's',
-    };
-    return map[product] || '';
-  }
-  
-  function renderJourneys(data: any) {
-    if (!data.journeys || data.journeys.length === 0) {
-      resultsContent.innerHTML = '<div class="no-results">Keine Verbindungen gefunden</div>';
-      return;
-    }
-    
-    resultsContent.innerHTML = data.journeys.map((j: any) => `
-      <div class="journey-card">
-        <div class="journey-time">
-          <div class="time">${formatTime(j.departure)}</div>
-          ${j.departureDelay ? `<div class="delay">${j.departureDelay}</div>` : ''}
-          <div class="station">${j.origin.name}</div>
-          ${j.origin.platform ? `<div class="platform">Gl. ${j.origin.platform}</div>` : ''}
-        </div>
-        
-        <div class="journey-route">
-          <div class="duration">${j.duration}</div>
-          <div class="line"></div>
-          <div class="transfers">${j.transfers === 0 ? 'Direkt' : j.transfers + ' Umstieg' + (j.transfers > 1 ? 'e' : '')}</div>
-        </div>
-        
-        <div class="journey-time">
-          <div class="time">${formatTime(j.arrival)}</div>
-          ${j.arrivalDelay ? `<div class="delay">${j.arrivalDelay}</div>` : ''}
-          <div class="station">${j.destination.name}</div>
-          ${j.destination.platform ? `<div class="platform">Gl. ${j.destination.platform}</div>` : ''}
-        </div>
-        
-        <div class="journey-info">
-          <div class="journey-products">
-            ${j.products.map((p: any) => `<span class="product-badge ${getProductClass(p.product)}">${p.line}</span>`).join('')}
-          </div>
-          ${j.price ? `
-            <div class="journey-price">
-              <div class="price">${j.price.amount.toFixed(2)} €</div>
-              <div class="price-label">ab</div>
-            </div>
-          ` : ''}
-        </div>
-      </div>
-    `).join('');
-  }
-  
-  async function searchJourneys(from: string, to: string, when?: string) {
-    btnText.style.display = 'none';
-    (btnLoading as HTMLElement).style.display = 'inline';
-    (searchBtn as HTMLButtonElement).disabled = true;
-    
-    try {
-      const params = new URLSearchParams({ from, to, results: '6' });
-      if (when) params.set('when', when);
-      
-      const res = await fetch(`/api/transport/journeys?${params}`);
-      const data = await res.json();
-      
-      if (!res.ok) {
-        throw new Error(data.error || 'Fehler bei der Suche');
-      }
-      
-      resultsTitle.textContent = `${from} → ${to}`;
-      renderJourneys(data);
-      resultsSection.style.display = 'block';
-      resultsSection.scrollIntoView({ behavior: 'smooth' });
-      
-    } catch (err: any) {
-      resultsContent.innerHTML = `<div class="error-message">${err.message}</div>`;
-      resultsSection.style.display = 'block';
-    } finally {
-      (btnText as HTMLElement).style.display = 'inline';
-      (btnLoading as HTMLElement).style.display = 'none';
-      (searchBtn as HTMLButtonElement).disabled = false;
-    }
-  }
-  
-  searchForm.addEventListener('submit', async (e) => {
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const from = fromInput.value;
-    const to = toInput.value;
-    const date = dateInput.value;
-    
-    if (!from || !to) {
-      alert('Bitte Start und Ziel eingeben');
-      return;
-    }
-    
-    const when = date ? new Date(date + 'T08:00:00').toISOString() : undefined;
-    await searchJourneys(from, to, when);
-  });
-  
-  closeResults.addEventListener('click', () => {
-    resultsSection.style.display = 'none';
-  });
-  
-  // ============ Popular Routes Click ============
-  document.querySelectorAll('.route-card').forEach(card => {
-    card.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const from = (card as HTMLElement).dataset.from!;
-      const to = (card as HTMLElement).dataset.to!;
-      fromInput.value = from;
-      toInput.value = to;
-      await searchJourneys(from, to);
-    });
-  });
-  
-  // ============ Chat ============
-  const chatForm = document.getElementById('chat-form')!;
-  const chatInput = document.getElementById('chat-input') as HTMLInputElement;
-  const chatMessages = document.getElementById('chat-messages')!;
-  
-  chatForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const query = chatInput.value.trim();
+    const query = input?.value;
     if (!query) return;
     
-    chatMessages.innerHTML += `<div class="message user"><p>${query}</p></div>`;
-    chatInput.value = '';
+    messages!.innerHTML += `<div class="message user"><p>${query}</p></div>`;
+    input.value = '';
     
-    // Simple pattern matching for now
-    const match = query.match(/von\s+(\w+)\s+(nach|bis|->)\s+(\w+)/i);
-    if (match) {
-      const from = match[1];
-      const to = match[3];
-      chatMessages.innerHTML += `<div class="message assistant"><p>Ich suche Verbindungen von ${from} nach ${to}...</p></div>`;
-      fromInput.value = from;
-      toInput.value = to;
-      await searchJourneys(from, to);
-    } else {
-      chatMessages.innerHTML += `<div class="message assistant"><p>Beschreibe deine Reise z.B. "Von Hamburg nach München" und ich suche passende Verbindungen.</p></div>`;
-    }
-    
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    // TODO: API call
+    messages!.innerHTML += `<div class="message assistant"><p>Ich suche passende Verbindungen für dich...</p></div>`;
   });
 </script>
