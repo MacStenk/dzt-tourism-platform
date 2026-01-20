@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Deutschland entdecken - KI-Reiseplanung">
+  <main>
+    <section class="hero">
+      <h1>Wohin soll's gehen?</h1>
+      <p>Dein KI-Reiseassistent für Deutschland</p>
+      
+      <div id="chat-container">
+        <div id="chat-messages"></div>
+        <form id="chat-form">
+          <input 
+            type="text" 
+            id="chat-input" 
+            placeholder="z.B. 'Von Hamburg nach München, morgen, günstig'" 
+            autocomplete="off"
+          />
+          <button type="submit">Fragen</button>
+        </form>
+      </div>
+    </section>
+    
+    <section class="features">
+      <div class="feature">
+        <span class="icon">🚂✈️🚌</span>
+        <h3>Preisvergleich</h3>
+        <p>Bahn, Flug oder Bus - wir finden die beste Option</p>
+      </div>
+      <div class="feature">
+        <span class="icon">🏰</span>
+        <h3>Sehenswürdigkeiten</h3>
+        <p>Über 500.000 POIs aus dem DZT Knowledge Graph</p>
+      </div>
+      <div class="feature">
+        <span class="icon">🎫</span>
+        <h3>Events</h3>
+        <p>Was ist los an deinem Reiseziel?</p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+  }
+  
+  h1 { font-size: 3rem; margin-bottom: 0.5rem; }
+  
+  #chat-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+  
+  #chat-messages {
+    min-height: 200px;
+    padding: 1rem;
+    color: #333;
+  }
+  
+  #chat-form {
+    display: flex;
+    border-top: 1px solid #eee;
+  }
+  
+  #chat-input {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    font-size: 1rem;
+  }
+  
+  #chat-form button {
+    padding: 1rem 2rem;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .feature { text-align: center; padding: 2rem; }
+  .feature .icon { font-size: 3rem; }
+</style>
