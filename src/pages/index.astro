@@ -2,101 +2,578 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Deutschland entdecken - KI-Reiseplanung">
+<Layout title="Reiseplaner Deutschland - Bahn, Flug & Bus im Vergleich">
+  <header>
+    <nav>
+      <a href="/" class="logo">reise<span>planer</span></a>
+      <div class="nav-links">
+        <a href="/routen">Routen</a>
+        <a href="/staedte">Städte</a>
+        <a href="/events">Events</a>
+      </div>
+    </nav>
+  </header>
+
   <main>
     <section class="hero">
-      <h1>Wohin soll's gehen?</h1>
-      <p>Dein KI-Reiseassistent für Deutschland</p>
-      
-      <div id="chat-container">
-        <div id="chat-messages"></div>
-        <form id="chat-form">
-          <input 
-            type="text" 
-            id="chat-input" 
-            placeholder="z.B. 'Von Hamburg nach München, morgen, günstig'" 
-            autocomplete="off"
-          />
-          <button type="submit">Fragen</button>
-        </form>
+      <div class="hero-content">
+        <h1>Die schnellste Verbindung finden</h1>
+        <p class="subtitle">Bahn, Flug und Bus im direkten Preisvergleich</p>
+        
+        <div class="search-box">
+          <div class="search-row">
+            <div class="input-group">
+              <label for="from">Von</label>
+              <input type="text" id="from" placeholder="Stadt oder Bahnhof" />
+            </div>
+            <div class="input-group">
+              <label for="to">Nach</label>
+              <input type="text" id="to" placeholder="Stadt oder Bahnhof" />
+            </div>
+            <div class="input-group">
+              <label for="date">Datum</label>
+              <input type="date" id="date" />
+            </div>
+            <button type="submit" class="search-btn">Suchen</button>
+          </div>
+        </div>
+
+        <div class="ai-hint">
+          <span class="badge">Neu</span>
+          Oder beschreibe deine Reise: 
+          <a href="#chat" class="ai-link">"Hamburg nach München, möglichst günstig"</a>
+        </div>
       </div>
     </section>
-    
-    <section class="features">
-      <div class="feature">
-        <span class="icon">🚂✈️🚌</span>
-        <h3>Preisvergleich</h3>
-        <p>Bahn, Flug oder Bus - wir finden die beste Option</p>
+
+    <section class="value-props">
+      <div class="container">
+        <div class="prop">
+          <div class="prop-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <h3>Echtzeit-Preise</h3>
+          <p>Aktuelle Preise von Deutsche Bahn, Fluggesellschaften und Fernbussen</p>
+        </div>
+        <div class="prop">
+          <div class="prop-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3>Alle Verkehrsmittel</h3>
+          <p>ICE, Regionalzug, Flug und Bus in einer Übersicht verglichen</p>
+        </div>
+        <div class="prop">
+          <div class="prop-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <h3>KI-Reiseberatung</h3>
+          <p>Beschreibe deine Wünsche und erhalte passende Vorschläge</p>
+        </div>
       </div>
-      <div class="feature">
-        <span class="icon">🏰</span>
-        <h3>Sehenswürdigkeiten</h3>
-        <p>Über 500.000 POIs aus dem DZT Knowledge Graph</p>
+    </section>
+
+    <section class="popular-routes">
+      <div class="container">
+        <h2>Beliebte Strecken</h2>
+        <div class="routes-grid">
+          <a href="/routen/berlin-muenchen" class="route-card">
+            <div class="route-cities">
+              <span>Berlin</span>
+              <span class="arrow">→</span>
+              <span>München</span>
+            </div>
+            <div class="route-meta">ab 17,90 € · 4h ICE</div>
+          </a>
+          <a href="/routen/hamburg-berlin" class="route-card">
+            <div class="route-cities">
+              <span>Hamburg</span>
+              <span class="arrow">→</span>
+              <span>Berlin</span>
+            </div>
+            <div class="route-meta">ab 12,90 € · 1h45 ICE</div>
+          </a>
+          <a href="/routen/frankfurt-koeln" class="route-card">
+            <div class="route-cities">
+              <span>Frankfurt</span>
+              <span class="arrow">→</span>
+              <span>Köln</span>
+            </div>
+            <div class="route-meta">ab 14,90 € · 1h ICE</div>
+          </a>
+          <a href="/routen/muenchen-hamburg" class="route-card">
+            <div class="route-cities">
+              <span>München</span>
+              <span class="arrow">→</span>
+              <span>Hamburg</span>
+            </div>
+            <div class="route-meta">ab 19,90 € · 5h30 ICE</div>
+          </a>
+        </div>
       </div>
-      <div class="feature">
-        <span class="icon">🎫</span>
-        <h3>Events</h3>
-        <p>Was ist los an deinem Reiseziel?</p>
+    </section>
+
+    <section id="chat" class="chat-section">
+      <div class="container">
+        <div class="chat-wrapper">
+          <div class="chat-header">
+            <h2>Reiseberatung</h2>
+            <p>Beschreibe deine Reise in eigenen Worten</p>
+          </div>
+          <div class="chat-box">
+            <div id="chat-messages">
+              <div class="message assistant">
+                <p>Wohin soll die Reise gehen? Beschreibe mir dein Ziel, Budget und Präferenzen.</p>
+              </div>
+            </div>
+            <form id="chat-form">
+              <input 
+                type="text" 
+                id="chat-input" 
+                placeholder="z.B. Von Hamburg nach München, morgen, möglichst günstig" 
+                autocomplete="off"
+              />
+              <button type="submit">Senden</button>
+            </form>
+          </div>
+        </div>
       </div>
     </section>
   </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>Reiseplaner</h4>
+          <p>Bahn, Flug und Bus im Vergleich. Unabhängig und transparent.</p>
+        </div>
+        <div>
+          <h4>Verbindungen</h4>
+          <ul>
+            <li><a href="/routen">Alle Routen</a></li>
+            <li><a href="/staedte">Städte</a></li>
+            <li><a href="/events">Events</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Rechtliches</h4>
+          <ul>
+            <li><a href="/impressum">Impressum</a></li>
+            <li><a href="/datenschutz">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Reiseplaner. Preise und Verfügbarkeiten ohne Gewähr.</p>
+      </div>
+    </div>
+  </footer>
 </Layout>
 
 <style>
-  .hero {
-    text-align: center;
-    padding: 4rem 2rem;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    color: white;
+  :root {
+    --primary: #1a56db;
+    --primary-dark: #1e429f;
+    --text: #111827;
+    --text-muted: #6b7280;
+    --bg: #ffffff;
+    --bg-subtle: #f9fafb;
+    --border: #e5e7eb;
   }
-  
-  h1 { font-size: 3rem; margin-bottom: 0.5rem; }
-  
-  #chat-container {
-    max-width: 600px;
-    margin: 2rem auto;
+
+  header {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .logo span {
+    color: var(--primary);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--text);
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1e3a5f 0%, #1a56db 100%);
+    color: white;
+    padding: 4rem 2rem 5rem;
+  }
+
+  .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 2.5rem;
+  }
+
+  .search-box {
     background: white;
     border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .search-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 150px auto;
+    gap: 1rem;
+    align-items: end;
+  }
+
+  .input-group {
+    text-align: left;
+  }
+
+  .input-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .input-group input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  .input-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
+  }
+
+  .search-btn {
+    padding: 0.875rem 2rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .search-btn:hover {
+    background: var(--primary-dark);
+  }
+
+  .ai-hint {
+    margin-top: 1.5rem;
+    color: rgba(255,255,255,0.9);
+    font-size: 0.9375rem;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.2);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+  }
+
+  .ai-link {
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .value-props {
+    padding: 5rem 0;
+    background: var(--bg-subtle);
+  }
+
+  .value-props .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+
+  .prop {
+    text-align: center;
+  }
+
+  .prop-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.5rem;
+    background: white;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .prop h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .prop p {
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .popular-routes {
+    padding: 5rem 0;
+  }
+
+  .popular-routes h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    color: var(--text);
+  }
+
+  .routes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .route-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .route-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(26, 86, 219, 0.1);
+  }
+
+  .route-cities {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .route-cities .arrow {
+    color: var(--text-muted);
+    margin: 0 0.5rem;
+  }
+
+  .route-meta {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .chat-section {
+    padding: 5rem 0;
+    background: var(--bg-subtle);
+  }
+
+  .chat-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .chat-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .chat-header h2 {
+    font-size: 1.75rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .chat-header p {
+    color: var(--text-muted);
+  }
+
+  .chat-box {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border);
     overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
   }
-  
+
   #chat-messages {
+    padding: 1.5rem;
     min-height: 200px;
-    padding: 1rem;
-    color: #333;
+    max-height: 400px;
+    overflow-y: auto;
   }
-  
+
+  .message {
+    margin-bottom: 1rem;
+  }
+
+  .message p {
+    background: var(--bg-subtle);
+    padding: 1rem;
+    border-radius: 8px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
   #chat-form {
     display: flex;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border);
   }
-  
+
   #chat-input {
     flex: 1;
-    padding: 1rem;
+    padding: 1rem 1.25rem;
     border: none;
     font-size: 1rem;
   }
-  
+
+  #chat-input:focus {
+    outline: none;
+  }
+
   #chat-form button {
-    padding: 1rem 2rem;
-    background: #4f46e5;
+    padding: 1rem 1.5rem;
+    background: var(--primary);
     color: white;
     border: none;
+    font-weight: 600;
     cursor: pointer;
-    font-weight: bold;
   }
-  
-  .features {
+
+  footer {
+    background: var(--text);
+    color: white;
+    padding: 4rem 0 2rem;
+  }
+
+  .footer-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    padding: 4rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 3rem;
   }
-  
-  .feature { text-align: center; padding: 2rem; }
-  .feature .icon { font-size: 3rem; }
+
+  footer h4 {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  footer p, footer li {
+    color: rgba(255,255,255,0.7);
+    line-height: 1.8;
+  }
+
+  footer ul {
+    list-style: none;
+  }
+
+  footer a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    color: white;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 2rem;
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 768px) {
+    .search-row {
+      grid-template-columns: 1fr;
+    }
+    
+    .value-props .container,
+    .routes-grid,
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    h1 {
+      font-size: 2rem;
+    }
+  }
 </style>
+
+<script>
+  const form = document.getElementById('chat-form');
+  const input = document.getElementById('chat-input') as HTMLInputElement;
+  const messages = document.getElementById('chat-messages');
+  
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const query = input?.value;
+    if (!query) return;
+    
+    messages!.innerHTML += `<div class="message user"><p>${query}</p></div>`;
+    input.value = '';
+    
+    // TODO: API call
+    messages!.innerHTML += `<div class="message assistant"><p>Ich suche passende Verbindungen für dich...</p></div>`;
+  });
+</script>
